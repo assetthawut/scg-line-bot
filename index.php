@@ -49,8 +49,8 @@ $app->post('/', function ($request, $response)
 		// if(strtolower($userMessage) == 'halo')
 		// {
 			// $message = "Halo juga";
-            // $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message);
-			$result = $bot->replyText($event['replyToken'], $event);
+            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($event);
+			$result = $bot->replyText($event['replyToken'], $textMessageBuilder);
 			return $result->getHTTPStatus() . ' ' . $result->getRawBody();
 		
 		// }
