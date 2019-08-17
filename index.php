@@ -50,7 +50,7 @@ $app->post('/', function ($request, $response)
 		// {
 			// $message = "Halo juga";
             // $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message);
-			$result = $bot->replyText($event['replyToken'], 'Hello Test 1234');
+			$result = $bot->replyText($event['replyToken'], $event);
 			return $result->getHTTPStatus() . ' ' . $result->getRawBody();
 		
 		// }
