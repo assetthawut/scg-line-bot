@@ -49,7 +49,7 @@ $app->post('/', function ($request, $response)
 		// if(strtolower($userMessage) == 'halo')
 		// {
 			// $message = "Halo juga";
-            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($event);
+            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("ขอบฟ้า พี่ตูน");
 			$result = $bot->replyText($event['replyToken'], $textMessageBuilder);
 			return $result->getHTTPStatus() . ' ' . $result->getRawBody();
 		
