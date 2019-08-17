@@ -40,21 +40,21 @@ class LocationMessage extends MessageEvent
     /**
      * Returns title of the location message.
      *
-     * @return string|null
+     * @return string
      */
     public function getTitle()
     {
-        return isset($this->message['title']) ? $this->message['title'] : null;
+        return $this->message['title'];
     }
 
     /**
      * Returns address of the location message.
      *
-     * @return string|null
+     * @return string
      */
     public function getAddress()
     {
-        return isset($this->message['address']) ? $this->message['address'] : null;
+        return $this->message['address'];
     }
 
     /**

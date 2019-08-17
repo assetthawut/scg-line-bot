@@ -27,9 +27,6 @@ use LINE\LINEBot\Event\MessageEvent;
  */
 class VideoMessage extends MessageEvent
 {
-    /** @var ContentProvider */
-    private $contentProvider;
-
     /**
      * VideoMessage constructor.
      *
@@ -38,26 +35,5 @@ class VideoMessage extends MessageEvent
     public function __construct($event)
     {
         parent::__construct($event);
-        $this->contentProvider = new ContentProvider($this->message['contentProvider']);
-    }
-
-    /**
-     * Returns duration of the video message.
-     *
-     * @return int
-     */
-    public function getDuration()
-    {
-        return $this->message['duration'];
-    }
-
-    /**
-     * Returns contentProvider of the video message.
-     *
-     * @return ContentProvider
-     */
-    public function getContentProvider()
-    {
-        return $this->contentProvider;
     }
 }

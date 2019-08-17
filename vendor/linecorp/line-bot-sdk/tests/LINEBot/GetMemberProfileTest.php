@@ -20,14 +20,13 @@ namespace LINE\Tests\LINEBot;
 
 use LINE\LINEBot;
 use LINE\Tests\LINEBot\Util\DummyHttpClient;
-use PHPUnit\Framework\TestCase;
 
-class GetMemberProfileTest extends TestCase
+class GetMemberProfileTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetGroupMemberIds()
     {
         $mock = function ($testRunner, $httpMethod, $url, $data) {
-            /** @var \PHPUnit\Framework\TestCase $testRunner */
+            /** @var \PHPUnit_Framework_TestCase $testRunner */
             $testRunner->assertEquals('GET', $httpMethod);
             $testRunner->assertEquals('https://api.line.me/v2/bot/group/GROUP_ID/member/MEMBER_ID', $url);
             return [
@@ -52,7 +51,7 @@ class GetMemberProfileTest extends TestCase
     public function testGetRoomMemberIds()
     {
         $mock = function ($testRunner, $httpMethod, $url, $data) {
-            /** @var \PHPUnit\Framework\TestCase $testRunner */
+            /** @var \PHPUnit_Framework_TestCase $testRunner */
             $testRunner->assertEquals('GET', $httpMethod);
             $testRunner->assertEquals('https://api.line.me/v2/bot/room/ROOM_ID/member/MEMBER_ID', $url);
             return [

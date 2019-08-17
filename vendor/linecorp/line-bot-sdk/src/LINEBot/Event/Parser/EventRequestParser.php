@@ -35,10 +35,6 @@ class EventRequestParser
         'leave' => 'LINE\LINEBot\Event\LeaveEvent',
         'postback' => 'LINE\LINEBot\Event\PostbackEvent',
         'beacon' => 'LINE\LINEBot\Event\BeaconDetectionEvent',
-        'accountLink' => 'LINE\LINEBot\Event\AccountLinkEvent',
-        'memberJoined' => 'LINE\LINEBot\Event\MemberJoinEvent',
-        'memberLeft' => 'LINE\LINEBot\Event\MemberLeaveEvent',
-        'things' => 'LINE\LINEBot\Event\ThingsEvent',
     ];
 
     private static $messageType2class = [
@@ -55,11 +51,11 @@ class EventRequestParser
      * @param string $body
      * @param string $channelSecret
      * @param string $signature
-     * @return mixed
+     * @return \LINE\LINEBot\Event\BaseEvent[] array
      * @throws InvalidEventRequestException
      * @throws InvalidSignatureException
      */
-    public static function parseEventRequest($body, $channelSecret, $signature, $eventsOnly = true)
+    public static function parseEventRequest($body, $channelSecret, $signature)
     {
         if (!isset($signature)) {
             throw new InvalidSignatureException('Request does not contain signature');
@@ -72,14 +68,14 @@ class EventRequestParser
         $events = [];
 
         $parsedReq = json_decode($body, true);
-        if (!isset($parsedReq['events'])) {
+        if (!array_key_exists('events', $parsedReq)) {
             throw new InvalidEventRequestException();
         }
 
         foreach ($parsedReq['events'] as $eventData) {
             $eventType = $eventData['type'];
 
-            if (!isset(self::$eventType2class[$eventType])) {
+            if (!array_key_exists($eventType, self::$eventType2class)) {
                 # Unknown event has come
                 $events[] = new UnknownEvent($eventData);
                 continue;
@@ -95,16 +91,7 @@ class EventRequestParser
             $events[] = new $eventClass($eventData);
         }
 
-        if ($eventsOnly) {
-            return $events;
-        }
-
-        $parsedReq = json_decode($body, true);
-        if (!isset($parsedReq['destination'])) {
-            throw new InvalidEventRequestException();
-        }
-
-        return [$parsedReq['destination'], $events];
+        return $events;
     }
 
     /**
@@ -114,7 +101,7 @@ class EventRequestParser
     private static function parseMessageEvent($eventData)
     {
         $messageType = $eventData['message']['type'];
-        if (!isset(self::$messageType2class[$messageType])) {
+        if (!array_key_exists($messageType, self::$messageType2class)) {
             return new UnknownMessage($eventData);
         }
 

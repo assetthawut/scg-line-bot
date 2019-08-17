@@ -1,20 +1,13 @@
 {
-  "license": "Apache-2.0",
+  "license": "Apache License, Version 2.0",
   "authors": [
     {
       "name": "moznion",
-      "email": "moznion@gmail.com",
-	  "role": "Retired"
+      "email": "moznion@gmail.com"
     },
     {
       "name": "Satoru Yoshihara",
-      "email": "vaduz0@gmail.com",
-	  "role": "Maintainer"
-    },
-    {
-      "name": "Satoshi Shibuya",
-      "email": "satosby@gmail.com",
-	  "role": "Maintainer"
+      "email": "vaduz0@gmail.com"
     }
   ],
   "require": {

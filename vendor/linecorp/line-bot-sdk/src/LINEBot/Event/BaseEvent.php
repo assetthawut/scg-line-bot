@@ -70,7 +70,7 @@ class BaseEvent
      */
     public function getReplyToken()
     {
-        return isset($this->event['replyToken']) ? $this->event['replyToken'] : null;
+        return array_key_exists('replyToken', $this->event) ? $this->event['replyToken'] : null;
     }
 
     /**
@@ -120,7 +120,7 @@ class BaseEvent
      */
     public function getUserId()
     {
-        return isset($this->event['source']['userId'])
+        return array_key_exists('userId', $this->event['source'])
             ? $this->event['source']['userId']
             : null;
     }
@@ -136,7 +136,7 @@ class BaseEvent
         if (!$this->isGroupEvent()) {
             throw new InvalidEventSourceException('This event source is not a group type');
         }
-        return isset($this->event['source']['groupId'])
+        return array_key_exists('groupId', $this->event['source'])
             ? $this->event['source']['groupId']
             : null;
     }
@@ -152,7 +152,7 @@ class BaseEvent
         if (!$this->isRoomEvent()) {
             throw new InvalidEventSourceException('This event source is not a room type');
         }
-        return isset($this->event['source']['roomId'])
+        return array_key_exists('roomId', $this->event['source'])
             ? $this->event['source']['roomId']
             : null;
     }
@@ -162,7 +162,6 @@ class BaseEvent
      * (i.e. userId, groupId or roomId).
      *
      * @return null|string
-     * @throws InvalidEventSourceException
      */
     public function getEventSourceId()
     {

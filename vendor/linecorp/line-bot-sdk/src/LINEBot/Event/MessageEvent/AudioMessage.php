@@ -27,9 +27,6 @@ use LINE\LINEBot\Event\MessageEvent;
  */
 class AudioMessage extends MessageEvent
 {
-    /** @var ContentProvider */
-    private $contentProvider;
-    
     /**
      * AudioMessage constructor.
      *
@@ -38,26 +35,5 @@ class AudioMessage extends MessageEvent
     public function __construct($event)
     {
         parent::__construct($event);
-        $this->contentProvider = new ContentProvider($this->message['contentProvider']);
-    }
-
-    /**
-     * Returns duration of the audio message.
-     *
-     * @return int
-     */
-    public function getDuration()
-    {
-        return $this->message['duration'];
-    }
-
-    /**
-     * Returns contentProvider of the audio message.
-     *
-     * @return ContentProvider
-     */
-    public function getContentProvider()
-    {
-        return $this->contentProvider;
     }
 }

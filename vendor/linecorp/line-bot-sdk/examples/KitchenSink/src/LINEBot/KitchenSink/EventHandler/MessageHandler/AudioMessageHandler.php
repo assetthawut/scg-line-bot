@@ -52,37 +52,26 @@ class AudioMessageHandler implements EventHandler
 
     public function handle()
     {
-        $replyToken = $this->audioMessage->getReplyToken();
-
-        $contentProvider = $this->audioMessage->getContentProvider();
-        if ($contentProvider->isExternal()) {
-            $this->bot->replyMessage(
-                $replyToken,
-                new AudioMessageBuilder(
-                    $contentProvider->getOriginalContentUrl(),
-                    $this->audioMessage->getDuration()
-                )
-            );
-            return;
-        }
-        
         $contentId = $this->audioMessage->getMessageId();
         $audio = $this->bot->getMessageContent($contentId)->getRawBody();
 
-        $tempFilePath = tempnam($_SERVER['DOCUMENT_ROOT'] . '/static/tmpdir', 'audio-');
-        unlink($tempFilePath);
-        $filePath = $tempFilePath . '.mp4';
+        $tmpfilePath = tempnam($_SERVER['DOCUMENT_ROOT'] . '/static/tmpdir', 'audio-');
+        unlink($tmpfilePath);
+        $filePath = $tmpfilePath . '.mp4';
         $filename = basename($filePath);
 
         $fh = fopen($filePath, 'x');
         fwrite($fh, $audio);
         fclose($fh);
 
+        $replyToken = $this->audioMessage->getReplyToken();
+
         $url = UrlBuilder::buildUrl($this->req, ['static', 'tmpdir', $filename]);
 
-        $this->bot->replyMessage(
+        $resp = $this->bot->replyMessage(
             $replyToken,
             new AudioMessageBuilder($url, 100)
         );
+        $this->logger->info($resp->getRawBody());
     }
 }

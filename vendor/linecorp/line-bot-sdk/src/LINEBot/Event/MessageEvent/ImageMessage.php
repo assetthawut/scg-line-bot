@@ -27,9 +27,6 @@ use LINE\LINEBot\Event\MessageEvent;
  */
 class ImageMessage extends MessageEvent
 {
-    /** @var ContentProvider */
-    private $contentProvider;
-
     /**
      * ImageMessage constructor.
      *
@@ -38,16 +35,5 @@ class ImageMessage extends MessageEvent
     public function __construct($event)
     {
         parent::__construct($event);
-        $this->contentProvider = new ContentProvider($this->message['contentProvider']);
-    }
-
-    /**
-     * Returns contentProvider of the image message.
-     *
-     * @return ContentProvider
-     */
-    public function getContentProvider()
-    {
-        return $this->contentProvider;
     }
 }
